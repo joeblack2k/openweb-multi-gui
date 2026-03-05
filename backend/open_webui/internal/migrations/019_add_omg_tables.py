@@ -71,9 +71,10 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
 
     migrator.add_index("omg_vm", "last_seen_at", unique=False)
     migrator.add_index("omg_vm", "is_online", unique=False)
-    migrator.add_index("omg_agent_session", "vm_id", "status", unique=False)
+    # peewee_migrate expects model field names, not raw column names, for FK indexes.
+    migrator.add_index("omg_agent_session", "vm", "status", unique=False)
     migrator.add_index("omg_agent_session", "updated_at", unique=False)
-    migrator.add_index("omg_agent_event", "agent_id", "id", unique=False)
+    migrator.add_index("omg_agent_event", "agent", "id", unique=False)
     migrator.add_index("omg_agent_event", "created_at", unique=False)
 
 
