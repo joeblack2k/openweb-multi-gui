@@ -1,0 +1,12 @@
+{
+  "gateway_ws_url": "ws://192.168.2.21:8080/api/omg/v1/agentd/ws",
+  "vm_id": "vm-openclaw-19",
+  "vm_name": "OpenClaw VM",
+  "token": "replace-with-strong-token",
+  "codex_model": "gpt-5.3-codex",
+  "base_workdir": "/var/lib/omg-agentd/workspaces",
+  "codex_app_server": {
+    "enabled": true,
+    "listen": "ws://127.0.0.1:8787"
+  }
+}

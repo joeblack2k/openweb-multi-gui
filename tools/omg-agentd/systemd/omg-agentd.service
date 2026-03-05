@@ -1,0 +1,22 @@
+[Unit]
+Description=OMG Agentd (Codex VM bridge)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=omg-agentd
+Group=omg-agentd
+WorkingDirectory=/opt/omg-agentd
+Environment=OMG_AGENTD_CONFIG=/etc/omg-agentd/config.json
+ExecStart=/opt/omg-agentd/.venv/bin/python /opt/omg-agentd/omg_agentd.py
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=false
+ReadWritePaths=/var/lib/omg-agentd /tmp /etc/omg-agentd
+
+[Install]
+WantedBy=multi-user.target
