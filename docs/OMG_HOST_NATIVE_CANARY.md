@@ -52,6 +52,12 @@ Override example:
 OMG_BACKEND_PORT=18080 OMG_FRONTEND_PORT=15173 ./tools/dev/host-canary.sh start
 ```
 
+Set explicit CORS value (useful when testing from another machine/browser origin):
+
+```bash
+OMG_CORS_ALLOW_ORIGIN='*' ./tools/dev/host-canary.sh start
+```
+
 Skip dependency bootstrap on restart loops:
 
 ```bash

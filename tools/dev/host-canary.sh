@@ -8,6 +8,7 @@ FRONTEND_DIR="${ROOT_DIR}"
 
 BACKEND_PORT="${OMG_BACKEND_PORT:-8080}"
 FRONTEND_PORT="${OMG_FRONTEND_PORT:-5173}"
+CORS_ALLOW_ORIGIN_VALUE="${OMG_CORS_ALLOW_ORIGIN:-*}"
 
 BACKEND_PID_FILE="${RUNTIME_DIR}/backend.pid"
 FRONTEND_PID_FILE="${RUNTIME_DIR}/frontend.pid"
@@ -21,6 +22,7 @@ Usage: $(basename "$0") <bootstrap|start|stop|restart|status|logs>
 Environment overrides:
   OMG_BACKEND_PORT   Backend port (default: 8080)
   OMG_FRONTEND_PORT  Frontend dev port (default: 5173)
+  OMG_CORS_ALLOW_ORIGIN CORS allow origin value (default: *)
   OMG_SKIP_BOOTSTRAP Set to 1 to skip dependency/bootstrap checks
 EOF
 }
@@ -110,7 +112,7 @@ start_backend() {
       source .venv/bin/activate
       export ENV=dev
       export PORT=${BACKEND_PORT}
-      export CORS_ALLOW_ORIGIN='http://localhost:${FRONTEND_PORT};http://127.0.0.1:${FRONTEND_PORT}'
+      export CORS_ALLOW_ORIGIN='${CORS_ALLOW_ORIGIN_VALUE}'
       python -m uvicorn open_webui.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --forwarded-allow-ips '*' --workers 1
     " >>"$BACKEND_LOG" 2>&1 &
     echo $! >"$BACKEND_PID_FILE"
