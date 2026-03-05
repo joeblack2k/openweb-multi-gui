@@ -63,6 +63,7 @@
 	import FolderModal from './Sidebar/Folders/FolderModal.svelte';
 	import Sidebar from '../icons/Sidebar.svelte';
 	import PinnedModelList from './Sidebar/PinnedModelList.svelte';
+	import VMAgents from './Sidebar/VMAgents.svelte';
 	import Note from '../icons/Note.svelte';
 	import { slide } from 'svelte/transition';
 	import HotkeyHint from '../common/HotkeyHint.svelte';
@@ -91,6 +92,7 @@
 
 	let folders = {};
 	let folderRegistry = {};
+	let apiToken = '';
 
 	let newFolderId = null;
 
@@ -415,6 +417,8 @@
 	};
 
 	onMount(() => {
+		apiToken = localStorage.token ?? '';
+
 		try {
 			const width = Number(localStorage.getItem('sidebarWidth'));
 			if (!Number.isNaN(width) && width >= MIN_WIDTH && width <= MAX_WIDTH) {
@@ -1146,6 +1150,10 @@
 							}}
 						/>
 					</Folder>
+				{/if}
+
+				{#if $user?.role === 'admin'}
+					<VMAgents token={apiToken} />
 				{/if}
 
 				<Folder
